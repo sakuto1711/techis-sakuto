@@ -1,3 +1,5 @@
+
+
 @extends('adminlte::page')
 
 @section('title', '商品一覧')
@@ -24,19 +26,20 @@
                     <table class="table table-hover text-nowrap">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th></th>
                                 <th>名前</th>
                                 <th>種別</th>
                                 <th>詳細</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($items as $item)
+                            @foreach ($items as $value)
                                 <tr>
-                                    <td>{{ $item->id }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->type }}</td>
-                                    <td>{{ $item->detail }}</td>
+                                    <td hidden>{{ $value->id }}</td>
+                                    <td><a href="item/Edit/{{ $value->id }}">編集</a></td>
+                                    <td>{{ $value->name }}</td>
+                                    <td>{{ $value->type }}</td>
+                                    <td>{{ $value->detail }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -48,6 +51,7 @@
 @stop
 
 @section('css')
+    <link rel="stylesheet" href="app.css">
 @stop
 
 @section('js')
