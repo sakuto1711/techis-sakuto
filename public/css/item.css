@@ -1,0 +1,14 @@
+//*
+全体
+*//
+.item_image{
+}
+.base64_image{position: relative;left: 250px;}
+.image{
+    position: relative;
+    bottom: 50px;
+    left: 40px;
+    width: 150px;
+    height: 150px;
+    border: 1px solid;
+}

@@ -19,11 +19,11 @@ class ItemController extends Controller
     }
 
     /**
-     * 商品一覧
+     * 音楽一覧
      */
     public function index()
     {
-        // 商品一覧取得
+        // 音楽一覧取得
         $items = Item::all();
 
         return view('item.index', compact('items'));
@@ -36,23 +36,34 @@ class ItemController extends Controller
         ]);
     }
     public function itemEdit(request $request){
-                    // バリデーション
-                    $this->validate($request, [
-                        'name' => 'required|max:100',
-                        'type' => 'required',
-                        'detail' => 'required',
-                    ],
-                [
-                    'name.required' => '名前は必須項目です',
-                    'type.required' => '種別は必須項目です',
-                    'detail.required' => '詳細説明は必須項目です',
-                ]);
+        $request->validate(
+            [
+                'song_name' => 'required',
+                'name' => 'required',
+                'type' => 'required',
+                'detail' => 'required',
+                'item_image' => 'required',
+            ],
+            [
+                'song_name.required' => '曲名を入力してください',
+                'name.required' => '歌手名を入力してください',
+                'type.required' => 'ジャンルを選択してください',
+                'detail.required' => '歌詞を入力してください',
+                'item_image.required' => '画像を選択してください',
+            ]
+            );
+                $item_image = null; //nullが許容されるファイル
+                if ($request->hasFile('item_image')){ // もし送信データに'item_img'があったら
+                    $item_image = base64_encode(file_get_contents($request->file('item_image')));         
+                }
 
                 //既存のレコードを所得して、編集してから保存する
                 $item = item::where('id','=',$request->id)->first();
+                $item->song_name = $request->song_name;
                 $item->name = $request->name;
                 $item->type = $request->type;
                 $item->detail = $request->detail;
+                $item->item_image = $item_image;
                 $item->save();
         
                 return redirect('/items');
@@ -65,36 +76,72 @@ class ItemController extends Controller
         return redirect('/items');
     }
     /**
-     * 商品登録
+     * 音楽登録
      */
-    public function add(Request $request)
-    {
-        // POSTリクエストのとき
-        if ($request->isMethod('post')) {
-            // バリデーション
-            $this->validate($request, [
-                'name' => 'required|max:100',
+    public function itemAdd(request $request){
+        $request->validate(
+            [
+                'song_name' => 'required',
+                'name' => 'required',
                 'type' => 'required',
                 'detail' => 'required',
+                'item_image' => 'required',
             ],
-        [
-            'name.required' => '名前は必須項目です',
-            'type.required' => '種別は必須項目です',
-            'detail.required' => '詳細説明は必須項目です',
-        ]);
+            [
+                'song_name.required' => '曲名を入力してください',
+                'name.required' => '歌手名を入力してください',
+                'type.required' => 'ジャンルを選択してください',
+                'detail.required' => '歌詞を入力してください',
+                'item_image.required' => '画像を選択してください',
+            ]
+            );
 
-            // 商品登録
-            Item::create([
-                'user_id' => Auth::user()->id,
-                'name' => $request->name,
-                'type' => $request->type,
-                'detail' => $request->detail,
-            ]);
+            $item_image = null; //nullが許容されるファイル
+            if ($request->hasFile('item_image')){ // もし送信データに'item_img'があったら
+                $item_image = base64_encode(file_get_contents($request->file('item_image')));         
+            }
+
+            $item = new item();
+            $item->song_name = $request->song_name;
+            $item->name = $request->name;
+            $item->type = $request->type;
+            $item->detail = $request->detail;
+            $item->item_image = $item_image;
+            $item->save();
 
             return redirect('/items');
-        }
+    }
+    public function add(){
+        return view('item/add');
+    }
+    public function search(Request $request)
+    {
+        // 音楽一覧取得
+   /* テーブルから全てのレコードを取得する */
+    $items = Item::query();
 
-        return view('item.add');
+
+    /* キーワードから検索処理 */
+    $keyword = $request->input('keyword');
+    if(!empty($keyword)) {//$keyword　が空ではない場合、検索処理を実行します
+        $items->where('song_name', 'LIKE', "%{$keyword}%")
+        ->orwhere('name', 'LIKE', "%{$keyword}%")
+        ->orwhere('detail', 'LIKE', "%{$keyword}%")
+        ->get();
+    }
+    if(is_array($request->input('types'))){
+
+        $items->where(function($q) use($request){
+            foreach($request->input('types') as $type){
+                $q->orWhere('type',$type);
+            }
+        });
+    
+    }
+    /* ページネーション */
+    $items = $items->paginate(100);
+
+        return view('item.search', compact('items'));
     }
 
 }

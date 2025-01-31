@@ -1,11 +1,9 @@
-
-
 @extends('adminlte::page')
 
-@section('title', '商品一覧')
+@section('title', '音楽検索')
 
 @section('content_header')
-    <h1>商品一覧</h1>
+    <h1>音楽検索</h1>
 @stop
 
 @section('content')
@@ -13,20 +11,14 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">商品一覧</h3>
+                    <h3 class="card-title">音楽検索</h3>
                     <div class="card-tools">
-                        <div class="input-group input-group-sm">
-                            <div class="input-group-append">
-                                <a href="{{ url('items/add') }}" class="btn btn-default">商品登録</a>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover text-nowrap">
                         <thead>
                             <tr>
-                                <th></th>
                                 <th>画像</th>
                                 <th>曲名</th>
                                 <th>歌手名</th>
@@ -38,7 +30,6 @@
                             @foreach ($items as $value)
                                 <tr data-bs-toggle="modal" data-bs-target="#{{$value->id}}modal">
                                     <td hidden>{{ $value->id }}</td>
-                                    <td><a href="item/Edit/{{ $value->id }}">編集</a></td>
                                     <td><img src="data:image/png;base64,{{$value->item_image}}" alt="" style="width:35px"></td>
                                     <td>{{$value->song_name}}</td>
                                     <td>{{ $value->name }}</td>
@@ -97,7 +88,40 @@
             </div>
         </div>
     </div>
-
+    <div class="container-fluid py-3">
+        <div class="row gx-3 gy-3">
+            <aside class="col-12 col-md-3 col-lg-2">
+                <form action="/search" method="get">
+                    <h3 class="mb-3">カテゴリー</h3>
+                    <div class="mb-3">
+                        <input type="text" name="keyword" class="form-control" placeholder="フリーワードで検索" style="font-size:1rem;">
+                    </div>
+                    <div class="form-check mb-2 d-flex align-items-center">
+                        <input name="types[]" class="form-check-input" type="checkbox" value="邦楽" id="japan-musicCheck">
+                        <label class="form-check-label" for="japan-musicCheck">邦楽</label>
+                    </div>
+                    <div class="form-check mb-2 d-flex align-items-center">
+                        <input name="types[]" class="form-check-input" type="checkbox" value="洋楽" id="Western-musicCheck">
+                        <label class="form-check-label" for="Western-musicCheck">洋楽</label>
+                    </div>
+                    <div class="form-check mb-2 d-flex align-items-center">
+                        <input name="types[]" class="form-check-input" type="checkbox" value="HipHop" id="HipHopCheck">
+                        <label class="form-check-label" for="HipHopCheck">HipHop</label>
+                    </div>
+                    <div class="form-check mb-2 d-flex align-items-center">
+                        <input name="types[]" class="form-check-input" type="checkbox" value="J-pop" id="J-popCheck">
+                        <label class="form-check-label" for="J-popCheck">J-pop</label>
+                    </div>
+                    <button class="btn btn-success w-100 mt-3" style="font-size:1rem;">検索</button>
+                </form>
+            </aside>
+            <section class="col-12 col-md-9 col-lg-10">
+                <div class="row equipment-list g-3">
+                    <!-- 動的に表示されます -->
+                </div>
+            </section>
+        </div>
+    </div>
 @stop
 
 @section('css')

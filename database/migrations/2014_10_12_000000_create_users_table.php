@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('like_name')->nullable()->comment("好きな歌手");
+            $table->string('like_type')->nullable()->comment("好きなジャンル");
             $table->rememberToken();
             $table->timestamps();
         });
