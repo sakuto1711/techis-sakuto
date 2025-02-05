@@ -65,7 +65,7 @@
                             <label for="like_name" class="col-md-4 col-form-label text-md-end">{{ __('好きな歌手') }}</label>
 
                             <div class="col-md-6">
-                                <input id="like_name" type="text" class="form-control @error('like_name') is-invalid @enderror" name="like_name" value="{{ old('like_name') }}" required autocomplete="like_name" autofocus>
+                                <input id="like_name" type="text" class="form-control @error('like_name') is-invalid @enderror" name="like_name" value="{{ old('like_name') }}" autocomplete="like_name" autofocus>
 
                                 @error('like_name')
                                     <span class="invalid-feedback" role="alert">
@@ -79,7 +79,7 @@
                             <label for="like_type" class="col-md-4 col-form-label text-md-end">{{ __('好きなジャンル') }}</label>
 
                             <div class="col-md-6">
-                                <input id="like_type" type="text" class="form-control @error('like_type') is-invalid @enderror" name="like_type" value="{{ old('like_type') }}" required autocomplete="like_type" autofocus>
+                                <input id="like_type" type="text" class="form-control @error('like_type') is-invalid @enderror" name="like_type" value="{{ old('like_type') }}" autocomplete="like_type" autofocus>
 
                                 @error('like_type')
                                     <span class="invalid-feedback" role="alert">
