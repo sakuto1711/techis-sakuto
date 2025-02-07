@@ -43,9 +43,11 @@
                                 <td>{{ $user->like_name }}</td>
                                 <td>{{ $user->like_type }}</td>
                                 <td>{{ $user->updated_at }}</td>
+                                @if(Auth::user()->role == 'admin')
                                 <td>
                                     <a href="/user/edit/{{ $user->id }}" class="btn btn-success" >編集</a>
                                 </td>
+                                @endif
                             </tr>
                             @endforeach
                         </tbody>

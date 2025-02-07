@@ -1,43 +1,32 @@
-## 音楽管理システム
+# 音楽管理システム
 
-### 環境構築手順
+##　概要
+このシステムでは、管理者が登録した音楽を一覧することができます。
 
-* Gitクローン
-* .env.example をコピーして .env を作成
-* MySQLのデータベース作成（名前：item_management）
-* Macの場合 .env の DB_PASSWORD を root に修正（Windowsは修正不要）
+ユーザーは音楽一覧のみですが、管理者は音楽の新規登録、編集、削除を行うことができ、ユーザー情報も編集、削除を行うことができます。
 
-    ```INI
-    DB_PASSWORD=root
-    ```
+##　主な機能
+- ログイン・ログアウト機能
+- 音楽一覧画面
+- 音楽新規登録、編集、削除機能
+- 音楽検索機能
+- ユーザーの編集、削除
 
-* APP_KEY生成
+## 開発環境
+```
+PHP 8.2.20
+MySQL 8.0.35
+Laravel 10.13.5
+```
 
-    ```console
-    php artisan key:generate
-    ```
+## 設計書
+[設計書ページへ](https://drive.google.com/drive/folders/1x-vmzV7JPhfVFK_yFikKnWDsN1a9s2IX?usp=drive_link)
 
-* Composerインストール
+##　システム一覧
+[アプリケーションページへ](https://jp-techis-sakuto1711-38fefa068faa.herokuapp.com/l)
 
-    ```console
-    composer install
-    ```
-
-* フロント環境構築
-
-    ```console
-    npm ci
-    npm run build
-    ```
-
-* マイグレーション
-
-    ```console
-    php artisan migrate
-    ```
-
-* 起動
-
-    ```console
-    php artisan serve
-    ```
+### テストアカウント情報
+```
+メースアドレス : shiro@techis.jp
+パスワード : 12345678
+```

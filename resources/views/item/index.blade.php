@@ -16,9 +16,11 @@
                     <h3 class="card-title">音楽一覧</h3>
                     <div class="card-tools">
                         <div class="input-group input-group-sm">
+                            @if(Auth::user()->role == 'admin')
                             <div class="input-group-append">
                                 <a href="{{ url('items/add') }}" class="btn btn-default">音楽登録</a>
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -38,7 +40,9 @@
                             @foreach ($items as $value)
                                 <tr data-bs-toggle="modal" data-bs-target="#{{$value->id}}modal">
                                     <td hidden>{{ $value->id }}</td>
+                                    @if(Auth::user()->role == 'admin')
                                     <td><a href="item/Edit/{{ $value->id }}">編集</a></td>
+                                    @endif
                                     <td><img src="data:image/png;base64,{{$value->item_image}}" alt="" style="width:35px"></td>
                                     <td>{{$value->song_name}}</td>
                                     <td>{{ $value->name }}</td>
