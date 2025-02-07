@@ -1,11 +1,11 @@
 # 音楽管理システム
 
-##　概要
+## 概要
 このシステムでは、管理者が登録した音楽を一覧することができます。
 
 ユーザーは音楽一覧のみですが、管理者は音楽の新規登録、編集、削除を行うことができ、ユーザー情報も編集、削除を行うことができます。
 
-##　主な機能
+## 主な機能
 - ログイン・ログアウト機能
 - 音楽一覧画面
 - 音楽新規登録、編集、削除機能
@@ -22,8 +22,8 @@ Laravel 10.13.5
 ## 設計書
 [設計書ページへ](https://drive.google.com/drive/folders/1x-vmzV7JPhfVFK_yFikKnWDsN1a9s2IX?usp=drive_link)
 
-##　システム一覧
-[アプリケーションページへ](https://jp-techis-sakuto1711-38fefa068faa.herokuapp.com/l)
+## システム一覧
+[アプリケーションページへ](https://jp-techis-sakuto1711-38fefa068faa.herokuapp.com/)
 
 ### テストアカウント情報
 ```
