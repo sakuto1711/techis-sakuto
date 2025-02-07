@@ -27,8 +27,9 @@
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover text-nowrap">
                         <thead>
-                            <tr>
+                            <tr>@if(Auth::user()->role == 'admin')
                                 <th></th>
+                                @endif
                                 <th>画像</th>
                                 <th>曲名</th>
                                 <th>歌手名</th>
